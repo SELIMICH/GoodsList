@@ -32,19 +32,12 @@ public class GoodsListActivity extends AppCompatActivity{
     private RecyclerView mRecyclerViewGoods;
     private ArrayList<Goods> data;
     private GoodsAdapter mAdapter;
-    private TextView mGoodsCount;
-    private Button mButtonMinus;
-    private Button mButtonPlus;
-    private int mCounter = 0;
     private String  TAG = "GoodsListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
-        mGoodsCount = (TextView) findViewById(R.id.goodsCount);
-        mButtonPlus = findViewById(R.id.btnPlus);
-        mButtonMinus = findViewById(R.id.btnMinus);
         initViews();
     }
 

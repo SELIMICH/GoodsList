@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".GoodsItem"></activity>
         <activity
             android:name=".screens.goods.GoodsListActivity"
-            android:parentActivityName=".screens.goods.MainActivity">
-        </activity>
+            android:parentActivityName=".screens.goods.MainActivity"></activity>
         <activity android:name=".screens.goods.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
