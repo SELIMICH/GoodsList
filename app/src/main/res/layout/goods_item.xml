@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    app:cardBackgroundColor="@color/card_view_background">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,26 +17,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/goodsTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="Название товара"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/goods_name"
+            android:textColor="@color/title_white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewGoods"
             app:layout_constraintTop_toTopOf="@+id/imageViewGoods" />
 
         <TextView
             android:id="@+id/goodsDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:text="Описание товара"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/goods_description"
+            android:textColor="@color/description_color"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewGoods"
             app:layout_constraintTop_toBottomOf="@+id/goodsTitle" />
 
@@ -45,7 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="цена"
+            android:layout_marginEnd="41dp"
+            android:gravity="top"
+            android:text="@string/price"
+            android:textColor="@color/price_count_white"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/imageViewGoods"
             app:layout_constraintTop_toBottomOf="@+id/goodsDescription" />
 
@@ -53,8 +70,10 @@
             android:id="@+id/btnMinus"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="41dp"
-            android:text="-"
+            android:layout_marginStart="41dp"
+            android:background="@drawable/round_button_minus"
+            android:text="@string/sign_minus"
+            android:textColor="@color/title_white"
             app:layout_constraintStart_toEndOf="@+id/goodsPrice"
             app:layout_constraintTop_toTopOf="@+id/goodsPrice" />
 
@@ -62,8 +81,10 @@
             android:id="@+id/btnPlus"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="48dp"
-            android:text="+"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_baseline_add_circle_24"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnMinus"
             app:layout_constraintTop_toTopOf="@+id/btnMinus" />
 
@@ -71,7 +92,10 @@
             android:id="@+id/goodsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="17dp"
+            android:text="@string/amount_of_goods"
+            android:textColor="@color/price_count_white"
             app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
             app:layout_constraintEnd_toStartOf="@+id/btnPlus"
             app:layout_constraintStart_toEndOf="@+id/btnMinus"

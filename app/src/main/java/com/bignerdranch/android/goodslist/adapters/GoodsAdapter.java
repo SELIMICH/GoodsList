@@ -15,24 +15,19 @@ import com.bignerdranch.android.goodslist.pojo.Goods;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder> {
+    private ArrayList<Goods> mGoods;
 
-    private List<Goods> mGoods;
-
-    public List<Goods> getGoods() {
-        return mGoods;
-    }
-
-    public void setGoods(List<Goods> goods) {
-        mGoods = goods;
-        notifyDataSetChanged();
+    public GoodsAdapter(ArrayList<Goods> goods) {
+        this.mGoods = goods;
     }
 
     @NonNull
     @Override
-    public GoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GoodsAdapter.GoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goods_item, parent,false);
         return new GoodsViewHolder(view);
     }
@@ -43,7 +38,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         Goods goods = mGoods.get(position);
         holder.mTitle.setText(goods.getName());
         holder.mDescription.setText(goods.getDescription());
-        holder.mPrice.setText(Integer.toString(goods.getPrice()));
+        holder.mPrice.setText(Integer.toString(goods.getPrice()) + " ₽");
 
         Glide.with(holder.mImageView.getContext())
                 .load(goods.getImage())
@@ -66,12 +61,20 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         private TextView mPrice;
         private ImageView mImageView;
 
+
+
         public GoodsViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.goodsTitle);
             mDescription = itemView.findViewById(R.id.goodsDescription);
             mPrice = itemView.findViewById(R.id.goodsPrice);
             mImageView = itemView.findViewById(R.id.imageViewGoods);
+
+
+
         }
+
     }
+
+
 }

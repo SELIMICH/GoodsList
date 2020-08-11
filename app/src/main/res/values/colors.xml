@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="title_white">#FFFFFF</color>
+    <color name="description_color">#686868</color>
+    <color name="price_count_white">#F4F4F4</color>
+    <color name="green">#00A52B</color>
+    <color name="background_of_main_activity">#151515</color>
+    <color name="card_view_background">#101010</color>
+    <color name="layout_background">#000000</color>
+    <color name="sign_plus">#00A52B</color>
 </resources>

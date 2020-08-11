@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">GoodsList</string>
+    <string name="app_name"> </string>
+    <string name="link_to_goods_list_activity">Перейти к покупкам</string>
+    <string name="search_goods">поиск блюд</string>
+    <string name="goods_name">Название товара</string>
+    <string name="goods_description">Описание товара</string>
+    <string name="price">цена</string>
+    <string name="sign_minus">-</string>
+    <string name="sign_plus">+</string>
+    <string name="amount_of_goods">0</string>
 </resources>
