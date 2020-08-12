@@ -15,7 +15,7 @@
         android:text="@string/link_to_goods_list_activity"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textAllCaps="false"
         android:layout_marginBottom="46dp"
         android:textColor="@color/title_white"

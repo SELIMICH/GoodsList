@@ -1,8 +1,6 @@
 package com.bignerdranch.android.goodslist.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +40,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         holder.mTitle.setText(goods.getName());
         holder.mDescription.setText(goods.getDescription());
         holder.mPrice.setText(goods.getPrice() + " ₽");
+        holder.mGoodsCount.setText("0");
 
         Glide.with(holder.mImageView.getContext())
                 .load(goods.getImage())
@@ -54,24 +53,31 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         holder.mButtonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int counterTemp = 0;
-                if (counterTemp != 0) {
-                    counterTemp--;
-                    String counter = String.valueOf(counterTemp);
-                    holder.mGoodsCount.setText(counter);
-                }else  {
+                String str = String.valueOf(holder.mGoodsCount.getText());
+                int counter = Integer.parseInt(str);
+                if (counter == 1) {
                     holder.mButtonMinus.setVisibility(View.INVISIBLE);
+                    holder.mGoodsCount.setVisibility(View.INVISIBLE);
+                    holder.mGoodsCount.setText("0");
+                    return;
                 }
+                counter--;
+                str = String.valueOf(counter);
+                holder.mGoodsCount.setText(str);
             }
         });
 
         holder.mButtonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int counterTemp = 0;
-                counterTemp++;
-                String counter = String.valueOf(counterTemp);
-                holder.mGoodsCount.setText(counter);
+                holder.mButtonMinus.setVisibility(View.VISIBLE);
+                holder.mGoodsCount.setVisibility(View.VISIBLE);
+                String str = String.valueOf(holder.mGoodsCount.getText());
+                int counter = Integer.parseInt(str);
+                counter++;
+                str = String.valueOf(counter);
+                holder.mGoodsCount.setText(str);
+
             }
         });
     }

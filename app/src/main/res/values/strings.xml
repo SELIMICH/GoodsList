@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"> </string>
+    <string name="app_name"> Peretz </string>
     <string name="link_to_goods_list_activity">Перейти к покупкам</string>
     <string name="search_goods">поиск блюд</string>
     <string name="goods_name">Название товара</string>

@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="57dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
@@ -30,6 +31,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
+            android:gravity="top"
             android:text="@string/goods_name"
             android:textColor="@color/title_white"
             android:textSize="18sp"
@@ -45,6 +47,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
+            android:gravity="top"
             android:text="@string/goods_description"
             android:textColor="@color/description_color"
             android:textSize="12sp"
@@ -58,11 +61,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="28dp"
             android:gravity="top"
             android:text="@string/price"
+
             android:textColor="@color/price_count_white"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewGoods"
             app:layout_constraintTop_toBottomOf="@+id/goodsDescription" />
 
@@ -71,22 +76,30 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="41dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="24dp"
+            android:visibility="invisible"
             android:background="@drawable/round_button_minus"
             android:text="@string/sign_minus"
             android:textColor="@color/title_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/goodsPrice"
-            app:layout_constraintTop_toTopOf="@+id/goodsPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/goodsDescription" />
 
         <Button
             android:id="@+id/btnPlus"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="48dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/ic_baseline_add_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnMinus"
-            app:layout_constraintTop_toTopOf="@+id/btnMinus" />
+            app:layout_constraintTop_toBottomOf="@+id/goodsDescription" />
 
         <TextView
             android:id="@+id/goodsCount"
@@ -94,7 +107,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="17dp"
+            android:gravity="top"
             android:text="@string/amount_of_goods"
+            android:visibility="invisible"
             android:textColor="@color/price_count_white"
             app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
             app:layout_constraintEnd_toStartOf="@+id/btnPlus"
