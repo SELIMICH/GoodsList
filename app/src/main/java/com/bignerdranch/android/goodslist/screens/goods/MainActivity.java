@@ -1,9 +1,11 @@
 package com.bignerdranch.android.goodslist.screens.goods;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle((Html.fromHtml("<font color=\"#4C4C4C\">" + getString(R.string.app_name) + "</font>")));
         mBtnGoToGoodsListActivity = (Button) findViewById(R.id.btn_go_to_goods_list_activity);
         mBtnGoToGoodsListActivity.setOnClickListener(new View.OnClickListener() {
             @Override

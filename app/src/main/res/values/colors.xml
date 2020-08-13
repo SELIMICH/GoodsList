@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#181818</color>
+    <color name="colorPrimaryDark">#181818</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="actionbar_text_color">#4C4C4C</color>
     <color name="title_white">#FFFFFF</color>
     <color name="description_color">#686868</color>
     <color name="price_count_white">#F4F4F4</color>
@@ -12,4 +13,5 @@
     <color name="card_view_background">#101010</color>
     <color name="layout_background">#000000</color>
     <color name="sign_plus">#00A52B</color>
+    <color name="sign_minus">#2F2F2F</color>
 </resources>

@@ -1,11 +1,15 @@
 package com.bignerdranch.android.goodslist.screens.goods;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,6 +31,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.bignerdranch.android.goodslist.adapters.GoodsAdapter.PREF_SEARCH_ID;
+import static com.bignerdranch.android.goodslist.adapters.GoodsAdapter.PREF_SEARCH_VALUE;
+
 public class GoodsListActivity extends AppCompatActivity{
 
     private RecyclerView mRecyclerViewGoods;
@@ -38,6 +45,8 @@ public class GoodsListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle((Html.fromHtml("<font color=\"#4C4C4C\">" + getString(R.string.app_name) + "</font>")));
         initViews();
     }
 
@@ -66,7 +75,7 @@ public class GoodsListActivity extends AppCompatActivity{
                 Log.i(TAG, "onResponse: " + response.body());
                 assert goodsResponse != null;
                 data.addAll(goodsResponse);
-                mAdapter = new GoodsAdapter(data);
+                mAdapter = new GoodsAdapter(data, GoodsListActivity.this);
                 mRecyclerViewGoods.setAdapter(mAdapter);
             }
 
