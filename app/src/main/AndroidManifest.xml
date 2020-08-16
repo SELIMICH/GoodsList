@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".screens.goods.GoodsListActivity"
-            android:parentActivityName=".screens.goods.MainActivity"></activity>
+            android:parentActivityName=".screens.goods.MainActivity" />
         <activity android:name=".screens.goods.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

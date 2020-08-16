@@ -2,33 +2,37 @@ package com.bignerdranch.android.goodslist.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.android.goodslist.R;
+import com.bignerdranch.android.goodslist.database.GoodsDb;
 import com.bignerdranch.android.goodslist.pojo.Goods;
-import com.bignerdranch.android.goodslist.screens.goods.GoodsListActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder> {
     private ArrayList<Goods> mGoods;
+    private Map<String, String > mData = new HashMap<>();
     private Context mContext;
+    GoodsDb mGoodsDb = new GoodsDb();
     public static final String PREF_SEARCH_ID = "searchId";
     public static final String PREF_SEARCH_VALUE = "searchId";
+
+
 
     public GoodsAdapter(ArrayList<Goods> goods, Context context) {
         this.mGoods = goods;
@@ -45,26 +49,25 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
-        Goods goods = mGoods.get(position);
-
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREF_SEARCH_ID, Context.MODE_PRIVATE);
-        //Creating editor to store values to shared preferences
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
-        //Adding values to editor
-        editor.putInt(PREF_SEARCH_ID, goods.getId());
-        editor.apply();
-        editor.putString(PREF_SEARCH_VALUE, String.valueOf(holder.mGoodsCount.getText()));
-        editor.apply();
+        final Goods goods = mGoods.get(position);
+        String value = mGoodsDb.loadData(goods,mContext);
 
 
-//        int id = sharedPreferences.getInt(PREF_SEARCH_VALUE, -1);
-        String value = sharedPreferences.getString(PREF_SEARCH_VALUE, "2");
-        Toast.makeText(mContext, value, Toast.LENGTH_SHORT).show();
 
         holder.mTitle.setText(goods.getName());
         holder.mDescription.setText(goods.getDescription());
         holder.mPrice.setText(goods.getPrice() + " ₽");
+
+        mData.put(String.valueOf(goods.getId()), String.valueOf(holder.mGoodsCount.getText()));
         holder.mGoodsCount.setText(value);
+        if (holder.mGoodsCount.getText().equals("0")) {
+            holder.mButtonMinus.setVisibility(View.INVISIBLE);
+            holder.mGoodsCount.setVisibility(View.INVISIBLE);
+        }
+
+
+
+
 
         Glide.with(holder.mImageView.getContext())
                 .load(goods.getImage())
@@ -73,6 +76,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                         .centerCrop()
                         .error(R.drawable.ic_launcher_foreground))
                 .into(holder.mImageView);
+
 
         holder.mButtonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +87,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                     holder.mButtonMinus.setVisibility(View.INVISIBLE);
                     holder.mGoodsCount.setVisibility(View.INVISIBLE);
                     holder.mGoodsCount.setText("0");
+                    mGoodsDb.saveData(goods,mContext,"0");
                     return;
                 }
                 counter--;
                 str = String.valueOf(counter);
                 holder.mGoodsCount.setText(str);
+                mGoodsDb.saveData(goods,mContext,str);
             }
         });
 
@@ -101,6 +107,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                 counter++;
                 str = String.valueOf(counter);
                 holder.mGoodsCount.setText(str);
+                mGoodsDb.saveData(goods,mContext,str);
 
             }
         });
@@ -112,7 +119,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         return mGoods.size();
     }
 
-    class GoodsViewHolder extends RecyclerView.ViewHolder {
+    public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
         private TextView mDescription;
@@ -138,6 +145,5 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         }
 
     }
-
 
 }

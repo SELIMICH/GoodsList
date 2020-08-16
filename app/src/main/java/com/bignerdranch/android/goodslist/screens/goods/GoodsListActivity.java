@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bignerdranch.android.goodslist.R;
 import com.bignerdranch.android.goodslist.adapters.GoodsAdapter;
 import com.bignerdranch.android.goodslist.api.ApiService;
+import com.bignerdranch.android.goodslist.database.GoodsDb;
 import com.bignerdranch.android.goodslist.pojo.Goods;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class GoodsListActivity extends AppCompatActivity{
     private ArrayList<Goods> data;
     private GoodsAdapter mAdapter;
     private String  TAG = "GoodsListActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,4 @@ public class GoodsListActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.activity_goods_list_search,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 }
