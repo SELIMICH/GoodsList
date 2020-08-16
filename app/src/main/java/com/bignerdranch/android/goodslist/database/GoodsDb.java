@@ -7,7 +7,7 @@ import com.bignerdranch.android.goodslist.pojo.Goods;
 
 
 public class GoodsDb extends Application {
-    private static SharedPreferences mSharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
     public void saveData(Goods goods ,Context context, String str) {
         mSharedPreferences = context.getSharedPreferences("GoodsDb" ,Context.MODE_PRIVATE);
