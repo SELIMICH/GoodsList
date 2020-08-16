@@ -20,17 +20,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder> {
     private ArrayList<Goods> mGoods;
-    private Map<String, String > mData = new HashMap<>();
     private Context mContext;
     GoodsDb mGoodsDb = new GoodsDb();
-    public static final String PREF_SEARCH_ID = "searchId";
-    public static final String PREF_SEARCH_VALUE = "searchId";
 
 
 
@@ -58,7 +54,6 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         holder.mDescription.setText(goods.getDescription());
         holder.mPrice.setText(goods.getPrice() + " ₽");
 
-        mData.put(String.valueOf(goods.getId()), String.valueOf(holder.mGoodsCount.getText()));
         holder.mGoodsCount.setText(value);
         if (holder.mGoodsCount.getText().equals("0")) {
             holder.mButtonMinus.setVisibility(View.INVISIBLE);
