@@ -27,6 +27,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     private ArrayList<Goods> mGoods;
     private Context mContext;
     GoodsDb mGoodsDb = new GoodsDb();
+    Goods goods = new Goods();
 
 
 
@@ -45,23 +46,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
-        final Goods goods = mGoods.get(position);
-        String value = mGoodsDb.loadData(goods,mContext);
-
-
-
-        holder.mTitle.setText(goods.getName());
-        holder.mDescription.setText(goods.getDescription());
-        holder.mPrice.setText(goods.getPrice() + " ₽");
-
-        holder.mGoodsCount.setText(value);
-        if (holder.mGoodsCount.getText().equals("0")) {
-            holder.mButtonMinus.setVisibility(View.INVISIBLE);
-            holder.mGoodsCount.setVisibility(View.INVISIBLE);
-        }
-
-
-
+         goods = mGoods.get(position);
 
 
         Glide.with(holder.mImageView.getContext())
@@ -116,25 +101,33 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
 
     public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitle;
-        private TextView mDescription;
-        private TextView mPrice;
         private ImageView mImageView;
         private TextView mGoodsCount;
         private Button mButtonMinus;
         private Button mButtonPlus;
 
 
-
+        @SuppressLint("SetTextI18n")
         public GoodsViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.goodsTitle);
-            mDescription = itemView.findViewById(R.id.goodsDescription);
-            mPrice = itemView.findViewById(R.id.goodsPrice);
+            TextView title = itemView.findViewById(R.id.goodsTitle);
+            TextView description = itemView.findViewById(R.id.goodsDescription);
+            TextView price = itemView.findViewById(R.id.goodsPrice);
             mImageView = itemView.findViewById(R.id.imageViewGoods);
             mGoodsCount = (TextView) itemView.findViewById(R.id.goodsCount);
             mButtonPlus = (Button) itemView.findViewById(R.id.btnPlus);
             mButtonMinus = (Button) itemView.findViewById(R.id.btnMinus);
+
+            title.setText(goods.getName());
+            description.setText(goods.getDescription());
+            price.setText(goods.getPrice() + " ₽");
+
+            String value = mGoodsDb.loadData(goods,mContext);
+            mGoodsCount.setText(value);
+            if (mGoodsCount.getText().equals("0")) {
+                mButtonMinus.setVisibility(View.INVISIBLE);
+                mGoodsCount.setVisibility(View.INVISIBLE);
+            }
 
 
         }

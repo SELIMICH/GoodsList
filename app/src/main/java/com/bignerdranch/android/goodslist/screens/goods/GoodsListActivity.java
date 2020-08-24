@@ -14,7 +14,7 @@ import android.view.Menu;
 
 import com.bignerdranch.android.goodslist.R;
 import com.bignerdranch.android.goodslist.adapters.GoodsAdapter;
-import com.bignerdranch.android.goodslist.api.ApiService;
+import com.bignerdranch.android.goodslist.database.GoodsDb;
 import com.bignerdranch.android.goodslist.pojo.Goods;
 
 import java.util.ArrayList;
@@ -24,8 +24,7 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 
 public class GoodsListActivity extends AppCompatActivity{
@@ -34,6 +33,7 @@ public class GoodsListActivity extends AppCompatActivity{
     private ArrayList<Goods> data;
     private GoodsAdapter mAdapter;
     private String  TAG = "GoodsListActivity";
+    private GoodsDb mGoodsDb = new GoodsDb();
 
 
     @Override
@@ -57,12 +57,8 @@ public class GoodsListActivity extends AppCompatActivity{
     }
 
     private void loadJSON() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://peretz-group.ru/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<Goods>> call = apiService.getGoods();
+
+        Call<List<Goods>> call = mGoodsDb.getApiService().getGoods();
         call.enqueue(new Callback<List<Goods>>() {
             @Override
             public void onResponse(Call<List<Goods>> call, Response<List<Goods>> response) {
