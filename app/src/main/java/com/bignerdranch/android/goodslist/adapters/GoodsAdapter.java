@@ -47,6 +47,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
+        if (position != (mGoods.size() - 1)) {
+            position++;
+        }
          goods = mGoods.get(position);
 
     }
@@ -79,6 +82,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
             description.setText(goods.getDescription());
             price.setText(goods.getPrice() + " ₽");
 
+
+            bind(goods);
+
+        }
+
+        private void bind(final Goods goods) {
+
             Glide.with(mImageView.getContext())
                     .load(goods.getImage())
                     .apply(new RequestOptions()
@@ -87,15 +97,6 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                             .error(R.drawable.ic_launcher_foreground))
                     .into(mImageView);
 
-            bind(goods);
-
-
-
-
-
-        }
-
-        private void bind(final Goods goods) {
             String value = mGoodsDb.loadData(goods,mContext);
             mGoodsCount.setText(value);
             if (mGoodsCount.getText().equals("0")) {
