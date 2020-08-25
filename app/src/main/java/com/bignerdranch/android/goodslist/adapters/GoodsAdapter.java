@@ -27,13 +27,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     private ArrayList<Goods> mGoods;
     private Context mContext;
     GoodsDb mGoodsDb = new GoodsDb();
-    Goods goods = new Goods();
+    Goods goods;
 
 
 
     public GoodsAdapter(ArrayList<Goods> goods, Context context) {
         this.mGoods = goods;
         this.mContext = context;
+        this.goods = goods.get(0);
     }
 
     @NonNull
@@ -47,50 +48,6 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
          goods = mGoods.get(position);
-
-
-        Glide.with(holder.mImageView.getContext())
-                .load(goods.getImage())
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .centerCrop()
-                        .error(R.drawable.ic_launcher_foreground))
-                .into(holder.mImageView);
-
-
-        holder.mButtonMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str = String.valueOf(holder.mGoodsCount.getText());
-                int counter = Integer.parseInt(str);
-                if (counter == 1) {
-                    holder.mButtonMinus.setVisibility(View.INVISIBLE);
-                    holder.mGoodsCount.setVisibility(View.INVISIBLE);
-                    holder.mGoodsCount.setText("0");
-                    mGoodsDb.saveData(goods,mContext,"0");
-                    return;
-                }
-                counter--;
-                str = String.valueOf(counter);
-                holder.mGoodsCount.setText(str);
-                mGoodsDb.saveData(goods,mContext,str);
-            }
-        });
-
-        holder.mButtonPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.mButtonMinus.setVisibility(View.VISIBLE);
-                holder.mGoodsCount.setVisibility(View.VISIBLE);
-                String str = String.valueOf(holder.mGoodsCount.getText());
-                int counter = Integer.parseInt(str);
-                counter++;
-                str = String.valueOf(counter);
-                holder.mGoodsCount.setText(str);
-                mGoodsDb.saveData(goods,mContext,str);
-
-            }
-        });
 
     }
 
@@ -122,6 +79,23 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
             description.setText(goods.getDescription());
             price.setText(goods.getPrice() + " ₽");
 
+            Glide.with(mImageView.getContext())
+                    .load(goods.getImage())
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.ic_launcher_background)
+                            .centerCrop()
+                            .error(R.drawable.ic_launcher_foreground))
+                    .into(mImageView);
+
+            bind(goods);
+
+
+
+
+
+        }
+
+        private void bind(final Goods goods) {
             String value = mGoodsDb.loadData(goods,mContext);
             mGoodsCount.setText(value);
             if (mGoodsCount.getText().equals("0")) {
@@ -129,6 +103,39 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                 mGoodsCount.setVisibility(View.INVISIBLE);
             }
 
+            mButtonMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String str = String.valueOf(mGoodsCount.getText());
+                    int counter = Integer.parseInt(str);
+                    if (counter == 1) {
+                        mButtonMinus.setVisibility(View.INVISIBLE);
+                        mGoodsCount.setVisibility(View.INVISIBLE);
+                        mGoodsCount.setText("0");
+                        mGoodsDb.saveData(goods,mContext,"0");
+                        return;
+                    }
+                    counter--;
+                    str = String.valueOf(counter);
+                    mGoodsCount.setText(str);
+                    mGoodsDb.saveData(goods,mContext,str);
+                }
+            });
+
+            mButtonPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mButtonMinus.setVisibility(View.VISIBLE);
+                    mGoodsCount.setVisibility(View.VISIBLE);
+                    String str = String.valueOf(mGoodsCount.getText());
+                    int counter = Integer.parseInt(str);
+                    counter++;
+                    str = String.valueOf(counter);
+                    mGoodsCount.setText(str);
+                    mGoodsDb.saveData(goods,mContext,str);
+
+                }
+            });
 
         }
 
