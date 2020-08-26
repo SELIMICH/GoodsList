@@ -47,10 +47,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
-        if (position != (mGoods.size() - 1)) {
-            position++;
-        }
-         goods = mGoods.get(position);
+         holder.bind(goods = mGoods.get(position));
 
     }
 
@@ -70,24 +67,22 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         @SuppressLint("SetTextI18n")
         public GoodsViewHolder(@NonNull View itemView) {
             super(itemView);
-            TextView title = itemView.findViewById(R.id.goodsTitle);
-            TextView description = itemView.findViewById(R.id.goodsDescription);
-            TextView price = itemView.findViewById(R.id.goodsPrice);
             mImageView = itemView.findViewById(R.id.imageViewGoods);
             mGoodsCount = (TextView) itemView.findViewById(R.id.goodsCount);
             mButtonPlus = (Button) itemView.findViewById(R.id.btnPlus);
             mButtonMinus = (Button) itemView.findViewById(R.id.btnMinus);
 
+        }
+
+        @SuppressLint("SetTextI18n")
+        private void bind(final Goods goods) {
+            TextView title = itemView.findViewById(R.id.goodsTitle);
+            TextView description = itemView.findViewById(R.id.goodsDescription);
+            TextView price = itemView.findViewById(R.id.goodsPrice);
+
             title.setText(goods.getName());
             description.setText(goods.getDescription());
             price.setText(goods.getPrice() + " ₽");
-
-
-            bind(goods);
-
-        }
-
-        private void bind(final Goods goods) {
 
             Glide.with(mImageView.getContext())
                     .load(goods.getImage())
