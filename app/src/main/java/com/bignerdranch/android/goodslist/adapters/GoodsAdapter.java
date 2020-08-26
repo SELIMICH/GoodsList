@@ -34,7 +34,6 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
     public GoodsAdapter(ArrayList<Goods> goods, Context context) {
         this.mGoods = goods;
         this.mContext = context;
-        this.goods = goods.get(0);
     }
 
     @NonNull
