@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.android.goodslist.R;
-import com.bignerdranch.android.goodslist.database.GoodsDb;
+import com.bignerdranch.android.goodslist.database.App;
 import com.bignerdranch.android.goodslist.pojo.Goods;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,14 +26,13 @@ import java.util.ArrayList;
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder> {
     private ArrayList<Goods> mGoods;
     private Context mContext;
-    GoodsDb mGoodsDb = new GoodsDb();
+    App App = new App();
     Goods goods;
 
 
 
-    public GoodsAdapter(ArrayList<Goods> goods, Context context) {
+    public GoodsAdapter(ArrayList<Goods> goods) {
         this.mGoods = goods;
-        this.mContext = context;
     }
 
     @NonNull
@@ -43,10 +42,10 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         return new GoodsViewHolder(view);
     }
 
-    @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     public void onBindViewHolder(@NonNull final GoodsViewHolder holder, int position) {
          holder.bind(goods = mGoods.get(position));
+         mContext = holder.itemView.getContext();
 
     }
 
@@ -61,27 +60,30 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
         private TextView mGoodsCount;
         private Button mButtonMinus;
         private Button mButtonPlus;
+        private TextView mTitle;
+        private TextView mDescription;
+        private TextView mPrice;
 
 
-        @SuppressLint("SetTextI18n")
+
         public GoodsViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageViewGoods);
             mGoodsCount = (TextView) itemView.findViewById(R.id.goodsCount);
             mButtonPlus = (Button) itemView.findViewById(R.id.btnPlus);
             mButtonMinus = (Button) itemView.findViewById(R.id.btnMinus);
-
+            mTitle = itemView.findViewById(R.id.goodsTitle);
+            mDescription = itemView.findViewById(R.id.goodsDescription);
+            mPrice = itemView.findViewById(R.id.goodsPrice);
         }
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n") // без этого ругается 86 строка :
+        // Do not concatenate text displayed with setText. Use resource string with placeholders.
         private void bind(final Goods goods) {
-            TextView title = itemView.findViewById(R.id.goodsTitle);
-            TextView description = itemView.findViewById(R.id.goodsDescription);
-            TextView price = itemView.findViewById(R.id.goodsPrice);
 
-            title.setText(goods.getName());
-            description.setText(goods.getDescription());
-            price.setText(goods.getPrice() + " ₽");
+            mTitle.setText(goods.getName());
+            mDescription.setText(goods.getDescription());
+            mPrice.setText(goods.getPrice() + mImageView.getContext().getString(R.string.rub_sign));
 
             Glide.with(mImageView.getContext())
                     .load(goods.getImage())
@@ -91,7 +93,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                             .error(R.drawable.ic_launcher_foreground))
                     .into(mImageView);
 
-            String value = mGoodsDb.loadData(goods,mContext);
+            String value = App.loadData(goods,mImageView.getContext());
             mGoodsCount.setText(value);
             if (mGoodsCount.getText().equals("0")) {
                 mButtonMinus.setVisibility(View.INVISIBLE);
@@ -107,13 +109,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                         mButtonMinus.setVisibility(View.INVISIBLE);
                         mGoodsCount.setVisibility(View.INVISIBLE);
                         mGoodsCount.setText("0");
-                        mGoodsDb.saveData(goods,mContext,"0");
+                        App.saveData(goods,mContext,"0");
                         return;
                     }
                     counter--;
                     str = String.valueOf(counter);
                     mGoodsCount.setText(str);
-                    mGoodsDb.saveData(goods,mContext,str);
+                    App.saveData(goods,mContext,str);
                 }
             });
 
@@ -127,7 +129,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.GoodsViewHol
                     counter++;
                     str = String.valueOf(counter);
                     mGoodsCount.setText(str);
-                    mGoodsDb.saveData(goods,mContext,str);
+                    App.saveData(goods,mContext,str);
 
                 }
             });

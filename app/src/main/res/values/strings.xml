@@ -10,4 +10,5 @@
     <string name="amount_of_goods">0</string>
     <string name="text_btn_minus">-</string>
     <string name="text_btn_plus">+</string>
+    <string name="rub_sign">" ₽"</string>
 </resources>

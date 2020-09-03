@@ -14,7 +14,7 @@ import android.view.Menu;
 
 import com.bignerdranch.android.goodslist.R;
 import com.bignerdranch.android.goodslist.adapters.GoodsAdapter;
-import com.bignerdranch.android.goodslist.database.GoodsDb;
+import com.bignerdranch.android.goodslist.database.App;
 import com.bignerdranch.android.goodslist.pojo.Goods;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class GoodsListActivity extends AppCompatActivity{
     private ArrayList<Goods> data;
     private GoodsAdapter mAdapter;
     private String  TAG = "GoodsListActivity";
-    private GoodsDb mGoodsDb = new GoodsDb();
+    private App App = new App();
 
 
     @Override
@@ -58,7 +58,7 @@ public class GoodsListActivity extends AppCompatActivity{
 
     private void loadJSON() {
 
-        Call<List<Goods>> call = mGoodsDb.getApiService().getGoods();
+        Call<List<Goods>> call = App.getApiService().getGoods();
         call.enqueue(new Callback<List<Goods>>() {
             @Override
             public void onResponse(Call<List<Goods>> call, Response<List<Goods>> response) {
@@ -66,7 +66,7 @@ public class GoodsListActivity extends AppCompatActivity{
                 Log.i(TAG, "onResponse: " + response.body());
                 assert goodsResponse != null;
                 data.addAll(goodsResponse);
-                mAdapter = new GoodsAdapter(data, GoodsListActivity.this);
+                mAdapter = new GoodsAdapter(data);
                 mRecyclerViewGoods.setAdapter(mAdapter);
             }
 
